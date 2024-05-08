@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.PH</groupId>
-	<artifactId>05_FirstStepsInJavaWhitSpringBoot</artifactId>
+	<artifactId>06_ParametersAndExcepionHandler</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>05_FirstStepsInJavaWhitSpringBoot</name>
+	<name>06_ParametersAndExcepionHandler</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>21</java.version>

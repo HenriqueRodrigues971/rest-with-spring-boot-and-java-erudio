@@ -12,9 +12,38 @@ public class MathController {
 	private static final String modeloMensagem = "Hello, %s";
 	private final AtomicLong contador = new AtomicLong();
 
-	@RequestMapping(value = "/soma/{num1}/{numer2}", method = RequestMethod.GET)
-	public Double soma(@PathVariable(value = "num1") String num1, @PathVariable(value = "num2") String num2) {
-		return 1D;
+	@RequestMapping(value = "/soma/{numberOne}/{numberTwo}", method = RequestMethod.GET)
+	public Double soma(@PathVariable(value = "numberOne") String numberOne,
+			@PathVariable(value = "numberTwo") String numberTwo) throws Exception {
+		if (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+			throw new Exception();
+		}
+		return convertToDouble(numberOne) + convertToDouble(numberTwo);
+	}
+
+	@RequestMapping(value = "/subtrai/{numberOne}/{numberTwo}", method = RequestMethod.GET)
+	public Double subtrai(@PathVariable(value = "numberOne") String numberOne, @PathVariable(value="numberTwo")String numberTwo
+			) throws Exception {
+		if(!isNumeric(numberOne) || isNumeric(numberTwo)) {
+		throw new Exception();
+		}
+		return convertToDouble(numberOne) -	 convertToDouble(numberTwo);
+	}
+
+	private Double convertToDouble(String strNumber) {
+		if (strNumber == null)
+			return 0D;
+		String number = strNumber.replaceAll(",", ".");
+		if (isNumeric(number))
+			return Double.parseDouble(number);
+		return null;
+	}
+
+	private boolean isNumeric(String strNumber) {
+		if (strNumber == null)
+			return false;
+		String number = strNumber.replaceAll(",", ".");
+		return number.matches("[-+]?[0-9]*\\.?[0-9]+");
 	}
 
 	/* A anotação PathVariable é usado para recuperar dados da url */
