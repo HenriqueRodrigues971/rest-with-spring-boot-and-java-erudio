@@ -10,4 +10,29 @@ public class ExceptionResponse implements Serializable {
 	private Date horaDoErro;
 	private String mensagem;
 	private String detalhes;
+	
+	public ExceptionResponse(Date horaDoErro, String mensagem, String detalhes) {
+		this.horaDoErro = horaDoErro;
+		this.mensagem = mensagem;
+		this.detalhes = detalhes;
+	}
+
+	public Date getHoraDoErro() {
+		return horaDoErro;
+	}
+
+	
+
+	public String getMensagem() {
+		return mensagem;
+	}
+
+	
+
+	public String getDetalhes() {
+		return detalhes;
+	}
+
+
+	
 }
