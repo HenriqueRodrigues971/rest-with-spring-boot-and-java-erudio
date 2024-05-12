@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+</head>
+<body>
+    <h1>Calculadora</h1>
+    <form id="calculatorForm">
+        <label for="numberOne">Número 1:</label>
+        <input type="text" id="numberOne" name="numberOne" required>
+        <br>
+        <label for="numberTwo">Número 2:</label>
+        <input type="text" id="numberTwo" name="numberTwo" required>
+        <br>
+        <label for="operation">Operação:</label>
+        <select id="operation" name="operation" required>
+            <option value="soma">Somar</option>
+            <option value="subtracao">Subtrair</option>
+            <option value="multi">Multiplicar</option>
+            <option value="dividir">Dividir</option>
+            <option value="raiz">Raiz Quadrada</option>
+        </select>
+        <br>
+        <button type="button" onclick="calculate()">Calcular</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        function calculate() {
+            var numberOne = document.getElementById("numberOne").value;
+            var numberTwo = document.getElementById("numberTwo").value;
+            var operation = document.getElementById("operation").value;
+
+            var url = "http://localhost:8080/" + operation + "/" + numberOne + "/" + numberTwo;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("result").innerHTML = "Resultado: " + data;
+                })
+                .catch(error => {
+                    console.error('Erro ao calcular:', error);
+                });
+        }
+    </script>
+</body>
+</html>
