@@ -35,6 +35,23 @@ public class PessoaServicos {
 		pessoa.setGenero("Masculino");
 		return pessoa;
 	}
+		
+		public Pessoa criarPessoa(Pessoa pessoa) {
+			logger.info("Criando pessoa");
+			
+			return pessoa;
+		}
+		
+		public Pessoa atualizarPessoa(Pessoa pessoa) {
+			logger.info("Atualizar pessoa");
+			
+			return pessoa;
+		}
+		public void deletarPessoa(String id) {
+			logger.info("Deletando pessoa");
+			
+		}
+		
 		private Pessoa simularPessoa(int i) {
 			Pessoa pessoa = new Pessoa();
 			pessoa.setId(contador.incrementAndGet());
