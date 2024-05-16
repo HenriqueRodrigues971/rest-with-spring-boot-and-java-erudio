@@ -3,17 +3,40 @@ package br.com.PH.Model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity /* Colocamos isso quando queremos dizer que esse model pertence a um banco */
+@Table(name = "pessoa") /* Colocamos o nome da tabela de onde o model vai conectar */
 public class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	@Id /* Gera um id automatico sem precisar digitar */
+	@GeneratedValue(strategy = GenerationType.IDENTITY) /*
+														 * vai autogerar o valor do id e acrescentar +1 a cada cadastro
+														 * novo
+														 */
 	private Long id;
+
+	@Column(name = "primeiro_nome", nullable = false, length =80)/*Colocamos o nome da coluna que os objetos estão refrenciando*/
 	private String primeiroNome;
+ /*nullble - Usamos para dizer se pode ser vazio ou não, false = não pode ser vazio*/
+	@Column(name = "ultimo_nome", nullable = false, length = 80)
 	private String ultimoNome;
+
+	@Column(nullable = false, length = 100)/*Caso o nome da coluna seja o mesmo do objeto não precisamos refernciar o nome*/
 	private String endereco;
+
+	@Column(nullable = false, length = 6)
 	private String genero;
 
-	public Pessoa() {}
+	public Pessoa() {
+	}
 
 	public Long getId() {
 		return id;
@@ -73,6 +96,5 @@ public class Pessoa implements Serializable {
 				&& Objects.equals(id, other.id) && Objects.equals(primeiroNome, other.primeiroNome)
 				&& Objects.equals(ultimoNome, other.ultimoNome);
 	}
-	
-	
+
 }
