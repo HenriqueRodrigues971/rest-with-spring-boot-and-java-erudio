@@ -27,7 +27,7 @@ public class PessoaController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Pessoa findById(@PathVariable(value = "id") String id) throws Exception {
+	public Pessoa findById(@PathVariable(value = "id") Long id) throws Exception {
 		return servico.buscarPorId(id);
 	}
 	@RequestMapping(
@@ -46,7 +46,7 @@ public class PessoaController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE )
-	public void deletarPessoa(@PathVariable(value = "id") String id){
+	public void deletarPessoa(@PathVariable(value = "id") Long id){
 		servico.deletarPessoa(id);
 	}
 
