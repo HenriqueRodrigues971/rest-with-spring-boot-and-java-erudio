@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.PH.Model.Pessoa;
+import br.com.PH.data.vo.v1.PessoaVO;
 import br.com.PH.exceptions.ResourceNotFoundException;
+import br.com.PH.mapper.DozerMapper;
 import br.com.PH.repositories.PessoaRepository;
 
 @Service
@@ -18,35 +20,38 @@ public class PessoaServicos {
 	@Autowired
 	PessoaRepository repository;
 
-	public List<Pessoa> buscarTodos() {
+	public List<PessoaVO> buscarTodos() {
 		logger.info("Procurando todas as pessoas!");
 
-		return repository.findAll();
+		return DozerMapper.converteListaObjeto(repository.findAll(), PessoaVO.class);
 	}
 
-	public Pessoa buscarPorId(Long id) {
+	public PessoaVO buscarPorId(Long id) {
 		logger.info("Buscando uma pessoa");
 		
-		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("no records found for this id"));
+		var entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("no records found for this id"));
+		return DozerMapper.converteObjeto(entity, PessoaVO.class);
 	}
 
-	public Pessoa criarPessoa(Pessoa pessoa) {
+	public PessoaVO criarPessoa(PessoaVO pessoaVO) {
 		logger.info("Criando pessoa");
-
-		return repository.save(pessoa);
+    var entity = DozerMapper.converteObjeto(pessoaVO, Pessoa.class);
+		var vo = DozerMapper.converteObjeto(repository.save(entity),PessoaVO.class);
+		return vo;
+		
 	}
 
-	public Pessoa atualizarPessoa(Pessoa pessoa) {
+	public PessoaVO atualizarPessoa(PessoaVO pessoaVO) {
 		logger.info("Atualizar pessoa");
 
-		var entity =repository.findById(pessoa.getId())
+		var entity =repository.findById(pessoaVO.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("no records found for this id"));
-		entity.setPrimeiroNome(pessoa.getPrimeiroNome());
-		entity.setUltimoNome(pessoa.getUltimoNome());
-		entity.setEndereco(pessoa.getEndereco());
-		entity.setGenero(pessoa.getGenero());
+		entity.setPrimeiroNome(pessoaVO.getPrimeiroNome());
+		entity.setUltimoNome(pessoaVO.getUltimoNome());
+		entity.setEndereco(pessoaVO.getEndereco());
+		entity.setGenero(pessoaVO.getGenero());
 		
-		return repository.save(pessoa);
+		return repository.save(pessoaVO);
 	}
 
 	public void deletarPessoa(Long id) {

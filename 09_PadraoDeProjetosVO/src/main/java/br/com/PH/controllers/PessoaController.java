@@ -1,4 +1,4 @@
-package br.com.PH;
+package br.com.PH.controllers;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.PH.Model.Pessoa;
+import br.com.PH.data.vo.v1.PessoaVO;
 import br.com.PH.servicos.PessoaServicos;
 
 @RestController
@@ -26,24 +26,24 @@ public class PessoaController {
 
 
 	@GetMapping( produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Pessoa> buscarTodos() {
+	public List<PessoaVO> buscarTodos() {
 		return servico.buscarTodos();
 	}
 	
 	@GetMapping(value = "/{id}",  produces = MediaType.APPLICATION_JSON_VALUE)
-	public Pessoa findById(@PathVariable(value = "id") Long id) throws Exception {
+	public PessoaVO findById(@PathVariable(value = "id") Long id) throws Exception {
 		return servico.buscarPorId(id);
 	}
 	@PostMapping(
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Pessoa criarPessoa(@RequestBody Pessoa pessoa) {
+	public PessoaVO criarPessoa(@RequestBody PessoaVO pessoa) {
 		return servico.criarPessoa(pessoa);
 	}
 	@PutMapping(
 			consumes = MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Pessoa atualizarPessoa(@RequestBody Pessoa pessoa) {
+	public PessoaVO atualizarPessoa(@RequestBody PessoaVO pessoa) {
 		return servico.atualizarPessoa(pessoa);
 	}
 	
