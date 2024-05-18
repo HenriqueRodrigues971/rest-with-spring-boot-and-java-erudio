@@ -9,6 +9,7 @@ import com.github.dozermapper.core.Mapper;
 public class DozerMapper {
 
 	private static Mapper mapper =  DozerBeanMapperBuilder.buildDefault();
+	//private static ModelMapper mapper =  new ModelMapper();
 	
 	public static <O, D> D converteObjeto(O origem, Class<D> destino) {
 		return mapper.map(origem, destino);

@@ -50,8 +50,9 @@ public class PessoaServicos {
 		entity.setUltimoNome(pessoaVO.getUltimoNome());
 		entity.setEndereco(pessoaVO.getEndereco());
 		entity.setGenero(pessoaVO.getGenero());
+		var vo = DozerMapper.converteObjeto(repository.save(entity), PessoaVO.class);
 		
-		return repository.save(pessoaVO);
+		return vo;
 	}
 
 	public void deletarPessoa(Long id) {
