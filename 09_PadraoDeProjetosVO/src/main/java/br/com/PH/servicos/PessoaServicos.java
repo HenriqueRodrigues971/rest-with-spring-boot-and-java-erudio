@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import br.com.PH.Model.Pessoa;
 import br.com.PH.data.vo.v1.PessoaVO;
+import br.com.PH.data.vo.v2.PessoaVOV2;
 import br.com.PH.exceptions.ResourceNotFoundException;
 import br.com.PH.mapper.DozerMapper;
+import br.com.PH.mapper.custom.PessoaMapper;
 import br.com.PH.repositories.PessoaRepository;
 
 @Service
@@ -19,7 +21,8 @@ public class PessoaServicos {
 
 	@Autowired
 	PessoaRepository repository;
-
+	@Autowired
+    PessoaMapper mapper;
 	public List<PessoaVO> buscarTodos() {
 		logger.info("Procurando todas as pessoas!");
 
@@ -37,6 +40,13 @@ public class PessoaServicos {
 		logger.info("Criando pessoa");
     var entity = DozerMapper.converteObjeto(pessoaVO, Pessoa.class);
 		var vo = DozerMapper.converteObjeto(repository.save(entity),PessoaVO.class);
+		return vo;
+		
+	}
+	public PessoaVOV2 criarPessoaV2(PessoaVOV2 pessoaVOV2) {
+		logger.info("Criando pessoa V2");
+		var entity = mapper.converteVoParaEntidade(pessoaVOV2);
+		var vo = mapper.converteEntidadeParaVo(repository.save(entity));
 		return vo;
 		
 	}
@@ -63,6 +73,8 @@ public class PessoaServicos {
 	
 		repository.delete(entity);
 	}
+
+	
 
 	
 	/*
